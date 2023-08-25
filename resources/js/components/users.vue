@@ -234,12 +234,9 @@ const createUserSchema = yup.object({
 const editUserSchema = yup.object({
     name: yup.string().required(),
     email: yup.string().email().required(),
-    password: yup
-        .string()
-        .required()
-        .when((password, schema) => {
-            return password ? schema.required().min(8) : schema;
-        }),
+    password: yup.string().when((password, schema) => {
+        return password ? schema.min(8) : schema;
+    }),
 });
 
 const handleSubmit = (values) => {
@@ -258,9 +255,9 @@ const createUser = (value, { resetForm }) => {
     });
 };
 
-const updateUser = (values, { resetForm }) => {
+const updateUser = (value) => {
     axios
-        .post("/api/users" + formValues.value.id, values)
+        .put("/api/users/", value)
         .then((response) => {
             const index = users.value.findIndex(
                 (user) => user.id === response.data.id
@@ -272,7 +269,7 @@ const updateUser = (values, { resetForm }) => {
             console.log(errors);
         })
         .finally(() => {
-            resetForm();
+            form.value.resetForm();
         });
 };
 

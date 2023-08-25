@@ -28,4 +28,15 @@ class ApplicationController extends Controller
 
         return $user;
     }
+    public function updateUsers(Request $request, $id){
+
+        return $id;
+        $user = User::find($id);
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->password = $request->password;
+        $user->save();
+
+        return $user;
+    }
 }
