@@ -192,9 +192,8 @@
 
 <script setup>
 import axios from "axios";
-import { Field, Form } from "vee-validate";
+import { Field, Form, useResetForm } from "vee-validate";
 import { ref, onMounted, reactive } from "vue";
-import { Schema } from "yup";
 import * as yup from "yup";
 
 const users = ref([]);
@@ -241,8 +240,11 @@ const editUserSchema = yup.object({
 
 const handleSubmit = (values) => {
     if (editing.value) {
+        // console.log('hello');
         updateUser(values);
     } else {
+        // console.log('World');
+
         createUser(values);
     }
 };
@@ -251,14 +253,15 @@ const createUser = (value, { resetForm }) => {
     axios.post("/api/users", value).then((response) => {
         users.value.unshift(response.data);
         $("#exampleModalCenter").modal("hide");
-        resetForm();
+        form.value.resetForm();
     });
 };
 
 const updateUser = (value) => {
     axios
-        .put("/api/users/", value)
+        .put("/api/users/" + formValues.value.id, value)
         .then((response) => {
+            console.log(response);
             const index = users.value.findIndex(
                 (user) => user.id === response.data.id
             );

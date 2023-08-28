@@ -23,6 +23,6 @@ Route::get('/', function () {
 
 Route::get('/api/users', [ApplicationController::class, 'getUsers']);
 Route::post('/api/users', [ApplicationController::class, 'storeUsers']);
-Route::put('/api/users/{user}', [ApplicationController::class, 'updateUsers']);
+Route::PUT('/api/users/{user}', [ApplicationController::class, 'updateUsers']);
 
 Route::get('{view}', ApplicationController::class)->where('view', '(.*)');

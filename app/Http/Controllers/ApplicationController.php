@@ -19,7 +19,8 @@ class ApplicationController extends Controller
         return $users;
     }
 
-    public function storeUsers(Request $request){
+    public function storeUsers(Request $request)
+    {
         $user = new User();
         $user->name = $request->name;
         $user->email = $request->email;
@@ -28,15 +29,16 @@ class ApplicationController extends Controller
 
         return $user;
     }
-    public function updateUsers(Request $request, $id){
-
-        return $id;
+    public function updateUsers($id, Request $request)
+    {
+        // dd($id);
         $user = User::find($id);
         $user->name = $request->name;
         $user->email = $request->email;
-        $user->password = $request->password;
+        if ($request->has('password')) {
+            $user->password = $request->password;
+        }
         $user->save();
-
         return $user;
     }
 }
