@@ -249,7 +249,7 @@ const handleSubmit = (values) => {
     }
 };
 
-const createUser = (value, { resetForm }) => {
+const createUser = (value) => {
     axios.post("/api/users", value).then((response) => {
         users.value.unshift(response.data);
         $("#exampleModalCenter").modal("hide");

@@ -36,7 +36,7 @@ class ApplicationController extends Controller
         $user->name = $request->name;
         $user->email = $request->email;
         if ($request->has('password')) {
-            $user->password = $request->password;
+            $user->password = bcrypt($request->password);
         }
         $user->save();
         return $user;

@@ -15,8 +15,6 @@ return new class extends Migration
             $table->id();
             $table->longText('title', 50);
             $table->longText('about');
-            $table->boolean('status');
-            $table->enum('type', ['none', 'Goverment', 'Private'])->default('none');
             $table->timestamps();
         });
     }
